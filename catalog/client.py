@@ -40,7 +40,6 @@ class ProductClient(object):
             details = self._get_details()
             variants = self._get_variants()
             specifications = self._get_specifications()
-            # return {**details, **variants, **specifications}
-            return {**details, **variants}
+            return {**details, **variants, **specifications}
         except (AttributeError,) as exc:
             return None
