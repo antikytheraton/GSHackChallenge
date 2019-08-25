@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
+env.read_env(env.str('ENV_PATH', 'common.env'))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,6 +86,16 @@ DATABASES = {
     }
 }
 
+
+# MONGO_URL = env('MONGO_URL')
+
+MONGO_CONNECTION_PARAMS = {
+    'DB': env('MONGO_DB'),
+    'HOST': env('MONGO_HOST'),
+    'PORT': int(env('MONGO_PORT')),
+    'USERNAME': env('MONGO_USERNAME'),
+    'PASSWORD': env('MONGO_PASSWORD'),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
