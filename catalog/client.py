@@ -1,6 +1,6 @@
 import requests
 from random import choice
-import datetime
+from datetime import datetime, timedelta
 
 
 class ProductClient(object):
@@ -38,10 +38,11 @@ class ProductClient(object):
         return {'specifications': response.json()}
 
     def _get_auctions(self):
+        date = datetime.now() + timedelta(days=choice([2, 5, 6, 10]))
         empty = {}
         auction = {
-            'fecha': datetime.datetime.now(),
-            'precio': None
+            'date': date,
+            'price': None
         }
         options = [empty, auction]
         return {'auctions': choice(options)}
@@ -52,6 +53,7 @@ class ProductClient(object):
             variants = self._get_variants()
             specifications = self._get_specifications()
             auctions = self._get_auctions()
-            return {**details, **variants, **auctions, **specifications}
+            return {**details, **variants, **auctions}
+            # , **specifications}
         except (AttributeError,) as exc:
             return None
