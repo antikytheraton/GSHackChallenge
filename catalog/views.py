@@ -12,6 +12,6 @@ class Product(APIView):
 
 class Products(APIView):
     def get(self, request):
-        products = map(lambda id: ProductClient(id).get_data(), range(0, 20))
+        products = map(lambda id: ProductClient(id).get_data(), range(0, 3))
         products = filter(None, products)
         return Response({'products': list(products)})
