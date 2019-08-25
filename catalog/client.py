@@ -1,4 +1,6 @@
 import requests
+from random import choice
+import datetime
 
 
 class ProductClient(object):
@@ -35,11 +37,21 @@ class ProductClient(object):
         response = requests.get(url)
         return {'specifications': response.json()}
 
+    def _get_auctions(self):
+        empty = {}
+        auction = {
+            'fecha': datetime.datetime.now(),
+            'precio': None
+        }
+        options = [empty, auction]
+        return {'auctions': choice(options)}
+
     def get_data(self):
         try:
             details = self._get_details()
             variants = self._get_variants()
             specifications = self._get_specifications()
-            return {**details, **variants, **specifications}
+            auctions = self._get_auctions()
+            return {**details, **variants, **auctions, **specifications}
         except (AttributeError,) as exc:
             return None
