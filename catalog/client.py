@@ -38,10 +38,13 @@ class ProductClient(object):
         return {'specifications': response.json()}
 
     def _get_auctions(self):
-        date = datetime.now() + timedelta(days=choice([2, 5, 6, 10]))
+        delta = choice([2, 5, 6, 10])
+        starts = datetime.now() + timedelta(days=delta)
+        ends = datetime.now() + timedelta(days=delta + 1)
         empty = {}
         auction = {
-            'date': date,
+            'starts': starts,
+            'ends': ends,
             'price': None
         }
         options = [empty, auction]
