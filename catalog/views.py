@@ -8,9 +8,6 @@ from .documents import ProductDocument
 
 class Favorites(APIView):
     def post(self, request):
-        id = request.data.get('id')
-        prods = ProductDocument.objects(prod_id=id)
-        prods.delete()
         queryset = ProductDocument(**request.data)
         queryset.save()
         return Response(queryset.to_json())
