@@ -40,7 +40,7 @@ class ProductDocument(Document):
     price = fields.StringField()
     image = fields.URLField()
     auctions = fields.DictField()
-    # offers = fields.ListField(fields.ListField())
+    offers = fields.ListField(fields.ListField())
     specifications = fields.ListField()
 
     def __init__(self, *args, **kwargs):
