@@ -8,17 +8,14 @@ from .documents import ProductDocument
 
 class Favorites(APIView):
     def post(self, request):
-        # id = request.data.get('id')
-        # products = ProductDocument.objects(prod_id=id)
-        # products.delete()
-        queryset = ProductDocument(request.data)
+        queryset = ProductDocument(**request.data)
         queryset.save()
         return Response(queryset.to_json())
 
     def get(self, request):
         queryset = ProductDocument.objects
+        queryset = list(map(lambda qs: qs.to_json(), queryset))
         return Response(list(queryset))
-
 
 
 class Products(APIView):

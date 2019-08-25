@@ -42,10 +42,11 @@ class ProductDocument(Document):
     auctions = fields.DictField()
     specifications = fields.ListField()
 
-    def __init__(self, product):
-        id = product.pop('id')
-        product['prod_id'] = id
-        super().__init__(**product)
+    def __init__(self, *args, **kwargs):
+        id = kwargs.pop('id')
+        kwargs['prod_id'] = id
+        # kwargs = {**product, **kwargs}
+        super().__init__(*args, **kwargs)
 
     def to_json(self):
         product = bson.json_util.dumps(self.to_mongo())
