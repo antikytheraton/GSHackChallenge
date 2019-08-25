@@ -33,7 +33,7 @@ class ProductClient(object):
     def _get_specifications(self):
         url = f'{self.BASE_URL_1}{self.productId}/specification'
         response = requests.get(url)
-        return {'speficifications': response.json()}
+        return {'specifications': response.json()}
 
     def get_data(self):
         try:
