@@ -29,6 +29,7 @@ class ProductClient(object):
         product = response.get('skus')[0]
         return {
             'price': product.get('bestPriceFormated', None),
+            'base_price': product.get('bestPrice', None),
             'image': product.get('image', None),
         }
 
@@ -56,6 +57,7 @@ class ProductClient(object):
             variants = self._get_variants()
             specifications = self._get_specifications()
             auctions = self._get_auctions()
-            return {**details, **variants, **auctions, **specifications}
+            products = {**details, **variants, **auctions, **specifications}
+            return products
         except (AttributeError,) as exc:
             return None

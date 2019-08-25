@@ -40,12 +40,15 @@ class ProductDocument(Document):
     price = fields.StringField()
     image = fields.URLField()
     auctions = fields.DictField()
+    offers = fields.ListField(fields.ListField())
     specifications = fields.ListField()
 
     def __init__(self, *args, **kwargs):
-        id = kwargs.pop('id')
-        kwargs['prod_id'] = id
-        # kwargs = {**product, **kwargs}
+        try:
+            id = kwargs.pop('id')
+            kwargs['prod_id'] = int(id)
+        except (TypeError,) as exc:
+            print(exc)
         super().__init__(*args, **kwargs)
 
     def to_json(self):
