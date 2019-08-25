@@ -30,9 +30,9 @@ class Products(APIView):
 
 class Auctions(APIView):
     def post(self, request, id):
-        queryset = ProductDocument.objects(prod_id=int(id)).first()
+        queryset = ProductDocument.objects(prod_id=id).first()
         offer = request.data.get('offer', None)
         if offer:
             queryset.save()
-            queryset.update(inc__offers=[offer, ])
+            queryset.update(offers=[offer, ])
         return Response(queryset.to_json())
